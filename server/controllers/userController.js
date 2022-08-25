@@ -26,16 +26,29 @@ class UserController {
         return res.json(token)
     }
 
-    async login(req, res) {
 
+    async login(req, res, next) {
+        const { email, password} = req.body
+        
+        const user = await User.findOne({where:{email}})
+        if(!user) {
+            return next(ApiError.badRequest('This user already exists'))
+        }
+        let hashPassword = bcrypt.compareSync(password, user.password)
+        
+        if(!hashPassword) {
+            return next(ApiError.badRequest('incorrect password'))
+        }
+
+        const token = generateJWT(email, user.id, user.role)
+        return res.json(token)
     }
 
+
     async check(req, res, next) {
-        const { id } = req.query
-        if (!id) {
-            return next(ApiError.badRequest('Bad Request'))
-        }
-        res.json(id)
+       const {email, role, id} = req.userx
+       const token = generateJWT(email, id, role)
+       return res.json(token)
     }
 }
 
