@@ -13,6 +13,7 @@ class TypeController {
             return next(ApiError.badRequest('Name is required field'))
         }
         const type = await Type.create({name})
+        res.statusCode = 201
         return res.json(type)
     }
 
@@ -27,7 +28,7 @@ class TypeController {
         const { id } = req.params
         const type = await Type.findOne({where: {id: id}})
         if(!type) {
-            return next(ApiError.badRequest(`Type with id: ${id} is not found`))
+            return next(ApiError.notFound(`Type with id: ${id} is not found`))
         }
         return res.json(type)
     }
@@ -37,10 +38,11 @@ class TypeController {
         const { id } = req.params
         const type = await Type.findOne({where: {id: id}})
         if(!type) {
-            return next(ApiError.badRequest(`Type with id: ${id} is not found`))
+            return next(ApiError.notFound(`Type with id: ${id} is not found`))
         }
         await Type.destroy( {where: {id: id}})
         
+        res.statusCode = 204
         return res.json({message: `Type with id: ${id} has been successfully deleted`})
     }
 }

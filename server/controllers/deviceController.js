@@ -10,9 +10,12 @@ class DeviceController {
             const {img} = req.files
             let fileName= uuid.v4() + '.jpg'
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
-    
+            if(!name) {
+                return next(ApiError.badRequest("Please, enter device's name"))
+            }
+            console.log(req.body)
             const device = await Device.create({name, price, brandId, typeId, img: fileName})
-
+            
             if(info) {
                 info = JSON.parse(info)
                 info.array.forEach(e => {
@@ -21,10 +24,9 @@ class DeviceController {
                         description: e.description,
                         deviceId: e.deviceId
                     })
-                    
-
                 });
             }
+            res.statusCode = 201
             return res.json(device)
         }
         catch(e) {
@@ -54,13 +56,27 @@ class DeviceController {
 
     }
 
-    async getOne(req, res) {
+    async getOne(req, res, next) {
         const {id} = req.params
         const device = await Device.findOne({
             where: {id},
             include: [{model: DeviceInfo, as: 'info'}]
         })
+        if(!device) {
+            return next(ApiError.badRequest(`Device with id: ${id} is not found`))
+        }
         return res.json(device)
+    }
+
+    async delete(req, res, next) {
+        const {id} = req. params
+        const device = await Device.findOne({where: {id}})
+        if(!device) {
+            return next(ApiError.badRequest(`Device with id: ${id} is not found`))
+        }
+         await Device.destroy({where:{id}})
+         res.statusCode = 201
+         return res.json({message: `Device with id: ${id} has been successfully deleted`})
     }
 }
 
