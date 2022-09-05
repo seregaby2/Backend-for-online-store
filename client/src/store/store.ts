@@ -1,6 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { reducerUser } from './reducers/authSlice';
+import { reducerBrand } from './reducers/Devices/BrandSlice';
+import { reducerDevice } from './reducers/Devices/DevicesSlice';
+import { reducerType } from './reducers/Devices/TypeSlice';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  reducerUser,
+  reducerType,
+  reducerDevice,
+  reducerBrand,
+});
 
 export const setupStore = () => {
   return configureStore({

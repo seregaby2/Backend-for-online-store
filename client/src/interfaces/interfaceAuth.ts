@@ -1,4 +1,5 @@
 export interface IPostRequest {
+  id?: number;
   dataAuth: ISignInForm;
   isLoading: boolean;
   errorAuth: string;

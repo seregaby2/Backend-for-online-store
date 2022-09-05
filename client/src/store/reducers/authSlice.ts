@@ -8,7 +8,7 @@ const initialState: IPostRequest = {
   errorLogin: '',
   errorGetUser: '',
   errorDeleteUser: '',
-  isTokenActive: false,
+  isTokenActive: true,
 };
 
 export const SignupSlice = createSlice({
@@ -28,3 +28,6 @@ export const SignupSlice = createSlice({
     },
   },
 });
+
+export const reducerUser = SignupSlice.reducer;
+export const boardsAction = SignupSlice.actions;
