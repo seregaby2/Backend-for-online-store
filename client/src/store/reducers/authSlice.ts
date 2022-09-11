@@ -26,8 +26,11 @@ export const SignupSlice = createSlice({
       state.errorAuth = action.payload;
       state.isLoading = false;
     },
+    authToken(state) {
+      state.isTokenActive = state.isTokenActive ? false : true;
+    },
   },
 });
 
 export const reducerUser = SignupSlice.reducer;
-export const boardsAction = SignupSlice.actions;
+export const userAction = SignupSlice.actions;

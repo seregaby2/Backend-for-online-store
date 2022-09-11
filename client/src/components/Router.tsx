@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { RequireAuth } from '../hoc/RequireAuth';
 import { Admin } from '../pages/Admin';
-import { Auth } from '../pages/Auth';
+import Auth from '../pages/Auth/Auth';
 import { Basket } from '../pages/Basket';
 import { DevicePage } from '../pages/DevicePaga';
 import { NotFoundPage } from '../pages/NotFoundPage';
