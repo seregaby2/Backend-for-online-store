@@ -2,13 +2,11 @@ import React from 'react';
 import styles from './navBar.module.scss';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../hooks/redux';
 import { AppRoute } from '../../utils/consts';
-import { userAction } from '../../store/reducers/authSlice';
 
 const NavBar = () => {
   const { isTokenActive } = useAppSelector((state) => state.reducerUser);
-  const dispatch = useAppDispatch();
 
   return (
     <div>

@@ -5,15 +5,20 @@ type initialStateType = {
   types: IType[];
   isLoading: boolean;
   errorType: string;
+  selectedType: string;
 };
 
 const initialState: initialStateType = {
   types: [
     { id: 1, name: 'Fridge' },
     { id: 2, name: 'Phone' },
+    { id: 3, name: 'TV' },
+    { id: 4, name: 'Washing machine' },
+    { id: 5, name: 'Laptop' },
   ],
   isLoading: false,
   errorType: '',
+  selectedType: '',
 };
 
 export const TypeSlice = createSlice({
@@ -31,6 +36,9 @@ export const TypeSlice = createSlice({
     TypeFetchingError(state, action: PayloadAction<string>) {
       state.errorType = action.payload;
       state.isLoading = false;
+    },
+    TypeSelectedItem(state, action: PayloadAction<string>) {
+      state.selectedType = action.payload;
     },
   },
 });

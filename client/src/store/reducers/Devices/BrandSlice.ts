@@ -5,6 +5,7 @@ type initialStateBrand = {
   brands: IBrand[];
   isLoading: boolean;
   errorBrand: string;
+  selectedBrand: string;
 };
 
 const initialState: initialStateBrand = {
@@ -14,6 +15,7 @@ const initialState: initialStateBrand = {
   ],
   isLoading: false,
   errorBrand: '',
+  selectedBrand: '',
 };
 
 export const BrandSlice = createSlice({
@@ -31,6 +33,9 @@ export const BrandSlice = createSlice({
     BrandFetchingError(state, action: PayloadAction<string>) {
       state.errorBrand = action.payload;
       state.isLoading = false;
+    },
+    BrandSelectedItem(state, action: PayloadAction<string>) {
+      state.selectedBrand = action.payload;
     },
   },
 });

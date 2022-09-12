@@ -5,7 +5,7 @@ import Auth from '../pages/Auth/Auth';
 import { Basket } from '../pages/Basket';
 import { DevicePage } from '../pages/DevicePaga';
 import { NotFoundPage } from '../pages/NotFoundPage';
-import { Shop } from '../pages/Shop';
+import { Shop } from '../pages/Shop/Shop';
 import { AppRoute } from '../utils/consts';
 
 export const Router = () => {
