@@ -1,0 +1,29 @@
+.card {
+    max-width: 200px;
+    width: 100%;
+    display: flex;
+    margin-top: 15px;
+}
+
+.wrapperDescription {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.star {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+}
+
+.wrapperRating {
+    display: flex;
+    justify-content: space-between;
+    width: 35px;
+}
+
+.titleBrand {
+    color: rgb(176, 182, 187);
+}
