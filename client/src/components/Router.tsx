@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import { RequireAuth } from '../hoc/RequireAuth';
-import { Admin } from '../pages/Admin';
+import { Admin } from '../pages/Admin/Admin';
 import Auth from '../pages/Auth/Auth';
 import { Basket } from '../pages/Basket';
-import { DevicePage } from '../pages/DevicePaga';
+import { DevicePage } from '../pages/DevicePage/DevicePage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { Shop } from '../pages/Shop/Shop';
 import { AppRoute } from '../utils/consts';
@@ -14,7 +14,7 @@ export const Router = () => {
       <Route path={AppRoute.SHOP_ROUTE} element={<Shop />} />
       <Route path={AppRoute.LOGIN_ROUTE} element={<Auth />} />
       <Route path={AppRoute.REGISTRATION_ROUTE} element={<Auth />} />
-      <Route path={AppRoute.DEVICE_ROUTE} element={<DevicePage />} />
+      <Route path={AppRoute.DEVICE_ROUTE + '/:id'} element={<DevicePage />} />
       <Route
         path={AppRoute.ADMIN_ROUTE}
         element={

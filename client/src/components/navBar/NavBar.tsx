@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './navBar.module.scss';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import { AppRoute } from '../../utils/consts';
 
 const NavBar = () => {
   const { isTokenActive } = useAppSelector((state) => state.reducerUser);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -17,8 +18,14 @@ const NavBar = () => {
           </NavLink>
           {isTokenActive ? (
             <Nav className={styles.wrapperButton}>
-              <Button variant={'outline-light'}> Admin Control</Button>
-              <Button variant={'outline-light'}> LogOut</Button>
+              <Button variant={'outline-light'} onClick={() => navigate(AppRoute.ADMIN_ROUTE)}>
+                {' '}
+                Admin Control
+              </Button>
+              <Button variant={'outline-light'} onClick={() => navigate(AppRoute.LOGIN_ROUTE)}>
+                {' '}
+                SignOut
+              </Button>
             </Nav>
           ) : (
             <Nav className="ml-auto">
