@@ -9,7 +9,7 @@ export interface LayoutProps {
 export const RedirectMain = (props: LayoutProps): JSX.Element => {
   const isAuth = localStorage.getItem('checkAuthUser');
 
-  if (isAuth) {
+  if (!isAuth) {
     return <Navigate to={AppRoute.SHOP_ROUTE} />;
   }
   return props.children;

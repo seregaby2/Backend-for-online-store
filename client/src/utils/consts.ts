@@ -6,3 +6,5 @@ export const AppRoute = {
   BASKET_ROUTE: '/basket',
   DEVICE_ROUTE: '/device',
 };
+
+export const REACT_APP_API_URL = 'http://localhost:5000/';

@@ -13,7 +13,6 @@ type Myprops = {
 export const DeviceItem = (props: Myprops) => {
   const { devices } = props;
   const navigate = useNavigate();
-  console.log(navigate);
   return (
     <Col>
       <Card

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { CreateBrand } from '../../components/modals/CreateBrand';
-import { CreateDevice } from '../../components/modals/CreateDevice';
+import { CreateDevice } from '../../components/modals/CreateDevice/CreateDevice';
 import { CreateType } from '../../components/modals/CreateType';
 import styles from './Admin.module.scss';
 
 export const Admin = () => {
-  const [brandVisible, setBrandVisible] = useState(true);
+  const [brandVisible, setBrandVisible] = useState(false);
   const [typeVisible, setTypeVisible] = useState(false);
   const [deviceVisible, setDeviceVisible] = useState(false);
   return (

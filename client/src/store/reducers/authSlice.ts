@@ -1,33 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPostRequest } from '../../interfaces/interfaceAuth';
+import { IPostRequest, IUser } from '../../interfaces/interfaceAuth';
 
 const initialState: IPostRequest = {
-  dataAuth: { email: '', password: '' },
+  dataAuth: { email: '', role: 'USER' },
   isLoading: false,
   errorAuth: '',
   errorLogin: '',
   errorGetUser: '',
   errorDeleteUser: '',
-  isTokenActive: true,
+  isTokenActive: false,
 };
 
 export const SignupSlice = createSlice({
   name: 'postRequestUser',
   initialState,
   reducers: {
-    authFetching(state) {
-      state.isLoading = true;
+    authFetching(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
-    authFethingSuccess(state) {
-      state.isLoading = false;
+    authFethingSuccess(state, action: PayloadAction<IUser>) {
+      state.dataAuth = action.payload;
       state.errorAuth = '';
     },
     authFetchingError(state, action: PayloadAction<string>) {
       state.errorAuth = action.payload;
-      state.isLoading = false;
     },
-    authToken(state) {
-      state.isTokenActive = state.isTokenActive ? false : true;
+    authToken(state, action: PayloadAction<boolean>) {
+      state.isTokenActive = action.payload;
     },
   },
 });

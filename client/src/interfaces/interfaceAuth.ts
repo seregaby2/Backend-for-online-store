@@ -1,6 +1,6 @@
 export interface IPostRequest {
   id?: number;
-  dataAuth: ISignInForm;
+  dataAuth: IUser;
   isLoading: boolean;
   errorAuth: string;
   errorLogin: string;
@@ -12,4 +12,12 @@ export interface IPostRequest {
 export interface ISignInForm {
   email: string;
   password: string;
+}
+
+export interface IUser {
+  email: string;
+  exp?: number;
+  iat?: number;
+  id?: number;
+  role: string;
 }

@@ -26,3 +26,8 @@
     width: 100%;
     margin: 0;
 }
+
+button :focus {
+    outline: none;
+    background-color: blue;
+}

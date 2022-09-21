@@ -29,7 +29,10 @@ const NavBar = () => {
             </Nav>
           ) : (
             <Nav className="ml-auto">
-              <Button variant={'outline-light'}> SignUp</Button>
+              <Button variant={'outline-light'} onClick={() => navigate(AppRoute.LOGIN_ROUTE)}>
+                {' '}
+                SignUp
+              </Button>
             </Nav>
           )}
         </Container>
