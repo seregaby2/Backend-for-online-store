@@ -3,7 +3,7 @@ import { Card, Col, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import star from '../../assets/star_disable.png';
 import { IDevices } from '../../interfaces/interfaceDevices';
-import { AppRoute } from '../../utils/consts';
+import { AppRoute, REACT_APP_API_URL } from '../../utils/consts';
 import styles from './DeviceItem.module.scss';
 
 type Myprops = {
@@ -19,7 +19,7 @@ export const DeviceItem = (props: Myprops) => {
         className={styles.card}
         onClick={() => navigate(AppRoute.DEVICE_ROUTE + '/' + devices.id)}
       >
-        <Image src={devices.img} />
+        <Image src={`${REACT_APP_API_URL}/${devices.img}`} />
         <div className={styles.wrapperDescription}>
           <div className={styles.titleBrand}>Samsung</div>
           <div className={styles.wrapperRating}>

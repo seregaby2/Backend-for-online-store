@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, Form, Modal, Row, Col } from 'react-bootstrap';
-import { useAppSelector } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { createDevice, getBrands, getDevices, getTypes } from '../../../http/deviceApi';
+import { BrandSlice } from '../../../store/reducers/Devices/BrandSlice';
+import { TypeSlice } from '../../../store/reducers/Devices/TypeSlice';
 import styles from './CreateDevice.module.scss';
 
 type MyProps = {
@@ -11,7 +15,14 @@ type MyProps = {
 export const CreateDevice = (props: MyProps) => {
   const { show, onHide } = props;
   const { devices } = useAppSelector((store) => store.reducerDevice);
-  const { brands } = useAppSelector((store) => store.reducerBrand);
+  const { brands, selectedBrand } = useAppSelector((store) => store.reducerBrand);
+  const { selectedType } = useAppSelector((store) => store.reducerType);
+
+  const dispatch = useAppDispatch();
+
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
+  const [file, setFile] = useState('');
   const [info, setInfo] = useState([{ title: '', description: '', number: 0 }]);
 
   const addinfo = () => {
@@ -21,6 +32,31 @@ export const CreateDevice = (props: MyProps) => {
   const removeItem = (number: number) => {
     setInfo(info.filter((e) => e.number !== number));
   };
+
+  const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(e.target.files![0].name);
+  };
+
+  const changeInfo = (key: string, value: string, number: number) => {
+    setInfo(info.map((e) => (e.number === number ? { ...e, [key]: value } : e)));
+  };
+
+  const addDevice = () => {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', `${price}`);
+    formData.append('img', file);
+    formData.append('brandId', selectedBrand.name);
+    formData.append('typeId', selectedType.name);
+    formData.append('info', JSON.stringify(info));
+    console.log(formData);
+  };
+
+  useEffect(() => {
+    dispatch(getTypes());
+    dispatch(getBrands());
+    dispatch(getDevices());
+  }, []);
 
   return (
     <Modal
@@ -37,30 +73,53 @@ export const CreateDevice = (props: MyProps) => {
         <Form>
           <div className={styles.wrapperDropdown}>
             <Dropdown>
-              <Dropdown.Toggle variant="success">Choose type</Dropdown.Toggle>
+              <Dropdown.Toggle variant="success">
+                {selectedType.name ? selectedType.name : 'Choose type'}
+              </Dropdown.Toggle>
               <Dropdown.Menu>
                 {devices.map((type) => (
-                  <Dropdown.Item key={type.id}>{type.name}</Dropdown.Item>
+                  <Dropdown.Item
+                    key={type.id}
+                    onClick={() => dispatch(TypeSlice.actions.TypeSelectedItem(type))}
+                  >
+                    {type.name}
+                  </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
             </Dropdown>
             <Dropdown>
-              <Dropdown.Toggle variant="success">Choose brand</Dropdown.Toggle>
+              <Dropdown.Toggle variant="success">
+                {selectedBrand.name ? selectedBrand.name : 'Choose brand'}
+              </Dropdown.Toggle>
               <Dropdown.Menu>
                 {brands.map((brand) => (
-                  <Dropdown.Item key={brand.id}>{brand.name}</Dropdown.Item>
+                  <Dropdown.Item
+                    key={brand.id}
+                    onClick={() => dispatch(BrandSlice.actions.BrandSelectedItem(brand))}
+                  >
+                    {brand.name}
+                  </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
             </Dropdown>
           </div>
           <div className={styles.customInput}>
-            <Form.Control className={styles.customInput} placeholder="Enter device's name" />
+            <Form.Control
+              className={styles.customInput}
+              placeholder="Enter device's name"
+              value={name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+            />
             <Form.Control
               className={styles.customInput}
               placeholder="Enter device's price"
               type="number"
+              value={price}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPrice(Number(e.target.value))
+              }
             />
-            <Form.Control className={styles.customInput} type="file" />
+            <Form.Control className={styles.customInput} type="file" onChange={selectFile} />
           </div>
 
           <hr />
@@ -70,10 +129,22 @@ export const CreateDevice = (props: MyProps) => {
           {info.map((e) => (
             <Row key={e.number}>
               <Col>
-                <Form.Control placeholder="Enter property name" />
+                <Form.Control
+                  placeholder="Enter property name"
+                  value={e.title}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    changeInfo('title', event.target.value, e.number)
+                  }
+                />
               </Col>
               <Col>
-                <Form.Control placeholder="Enter property description" />
+                <Form.Control
+                  placeholder="Enter property description"
+                  value={e.description}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    changeInfo('description', event.target.value, e.number)
+                  }
+                />
               </Col>
               <Col>
                 <Button
@@ -92,7 +163,7 @@ export const CreateDevice = (props: MyProps) => {
         <Button variant="outline-danger" onClick={onHide}>
           Close
         </Button>
-        <Button variant="outline-success" onClick={onHide}>
+        <Button variant="outline-success" onClick={addDevice}>
           Add
         </Button>
       </Modal.Footer>

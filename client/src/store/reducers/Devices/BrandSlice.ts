@@ -5,36 +5,31 @@ type initialStateBrand = {
   brands: IBrand[];
   isLoading: boolean;
   errorBrand: string;
-  selectedBrand: string;
+  selectedBrand: IBrand;
 };
 
 const initialState: initialStateBrand = {
-  brands: [
-    { id: 1, name: 'Sumsung' },
-    { id: 2, name: 'Apple' },
-  ],
+  brands: [],
   isLoading: false,
   errorBrand: '',
-  selectedBrand: '',
+  selectedBrand: { name: '' },
 };
 
 export const BrandSlice = createSlice({
   name: 'RequestBrandOfDevice',
   initialState,
   reducers: {
-    BrandFetching(state) {
-      state.isLoading = true;
+    BrandFetching(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
     BrandFethingSuccess(state, action: PayloadAction<IBrand[]>) {
-      state.isLoading = false;
       state.errorBrand = '';
       state.brands = action.payload;
     },
     BrandFetchingError(state, action: PayloadAction<string>) {
       state.errorBrand = action.payload;
-      state.isLoading = false;
     },
-    BrandSelectedItem(state, action: PayloadAction<string>) {
+    BrandSelectedItem(state, action: PayloadAction<IBrand>) {
       state.selectedBrand = action.payload;
     },
   },

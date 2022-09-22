@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useAppDispatch } from '../../hooks/redux';
+import { createBrand } from '../../http/deviceApi';
 
 type MyProps = {
   show: boolean;
@@ -8,6 +10,15 @@ type MyProps = {
 
 export const CreateBrand = (props: MyProps) => {
   const { show, onHide } = props;
+
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState({ name: '' });
+
+  const addBrand = () => {
+    dispatch(createBrand(value));
+    onHide();
+  };
+
   return (
     <Modal
       show={show}
@@ -21,14 +32,20 @@ export const CreateBrand = (props: MyProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control placeholder="Enteer brand" />
+          <Form.Control
+            placeholder="Enteer brand"
+            value={value.name}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setValue({ name: e.target.value })
+            }
+          />
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="outline-danger" onClick={onHide}>
           Close
         </Button>
-        <Button variant="outline-success" onClick={onHide}>
+        <Button variant="outline-success" onClick={addBrand}>
           Add
         </Button>
       </Modal.Footer>

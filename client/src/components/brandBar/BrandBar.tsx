@@ -13,10 +13,10 @@ export const BrandBar = () => {
     <Row className={styles.wrapperBrand}>
       {brands.map((e) => (
         <Card
-          border={e.name === selectedBrand ? 'success' : 'light'}
+          border={e.name === selectedBrand.name ? 'success' : 'light'}
           className={styles.card}
           key={e.id}
-          onClick={() => dispatch(BrandAction.BrandSelectedItem(e.name))}
+          onClick={() => dispatch(BrandAction.BrandSelectedItem(e))}
         >
           {e.name}
         </Card>

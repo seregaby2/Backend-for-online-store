@@ -4,7 +4,7 @@ import { BrandBar } from '../../components/brandBar/BrandBar';
 import { DeviceList } from '../../components/deviceList/DeviceList';
 import { TypeBar } from '../../components/typeBar/TypeBar';
 import { useAppDispatch } from '../../hooks/redux';
-import { getTypes } from '../../http/deviceApi';
+import { getTypes, getBrands, getDevices } from '../../http/deviceApi';
 import styles from './Shop.module.scss';
 
 export const Shop = () => {
@@ -12,6 +12,8 @@ export const Shop = () => {
 
   useEffect(() => {
     dispatch(getTypes());
+    dispatch(getBrands());
+    dispatch(getDevices());
   }, []);
   return (
     <Container fluid>

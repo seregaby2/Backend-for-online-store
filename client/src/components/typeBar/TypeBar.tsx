@@ -11,9 +11,9 @@ export const TypeBar = () => {
     <ListGroup>
       {types.map((e) => (
         <ListGroup.Item
-          active={selectedType === e.name}
+          active={selectedType.name === e.name}
           key={e.id}
-          onClick={() => dispatch(TypeAction.TypeSelectedItem(e.name))}
+          onClick={() => dispatch(TypeAction.TypeSelectedItem(e))}
         >
           {e.name}
         </ListGroup.Item>

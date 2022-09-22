@@ -2,56 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDevices } from '../../../interfaces/interfaceDevices';
 
 type initialStateDevice = {
+  device: IDevices;
   devices: IDevices[];
   isLoading: boolean;
   errorDevice: string;
 };
 
 const initialState: initialStateDevice = {
-  devices: [
-    {
-      id: 1,
-      name: 'Iphone',
-      price: 1000,
-      rating: 5,
-      img: 'https://mobistore.by/files/products/1/apple-iphone-12-mini-256gb-pr12322_4.800x600w.jpg?06a822be4b957e594b3f6e7b7be754da',
-    },
-    {
-      id: 2,
-      name: 'Iphone',
-      price: 1000,
-      rating: 5,
-      img: 'https://mobistore.by/files/products/1/apple-iphone-12-mini-256gb-pr12322_4.800x600w.jpg?06a822be4b957e594b3f6e7b7be754da',
-    },
-    {
-      id: 3,
-      name: 'Iphone',
-      price: 1000,
-      rating: 5,
-      img: 'https://mobistore.by/files/products/1/apple-iphone-12-mini-256gb-pr12322_4.800x600w.jpg?06a822be4b957e594b3f6e7b7be754da',
-    },
-    {
-      id: 4,
-      name: 'Iphone',
-      price: 1000,
-      rating: 5,
-      img: 'https://mobistore.by/files/products/1/apple-iphone-12-mini-256gb-pr12322_4.800x600w.jpg?06a822be4b957e594b3f6e7b7be754da',
-    },
-    {
-      id: 5,
-      name: 'Iphone',
-      price: 1000,
-      rating: 5,
-      img: 'https://mobistore.by/files/products/1/apple-iphone-12-mini-256gb-pr12322_4.800x600w.jpg?06a822be4b957e594b3f6e7b7be754da',
-    },
-    {
-      id: 6,
-      name: 'Iphone',
-      price: 1000,
-      rating: 5,
-      img: 'https://mobistore.by/files/products/1/apple-iphone-12-mini-256gb-pr12322_4.800x600w.jpg?06a822be4b957e594b3f6e7b7be754da',
-    },
-  ],
+  device: { name: '', rating: 5, price: 0, img: '' },
+  devices: [],
   isLoading: false,
   errorDevice: '',
 };
@@ -60,17 +19,19 @@ export const DeviceSlice = createSlice({
   name: 'RequestDevices',
   initialState,
   reducers: {
-    DeviceFetching(state) {
-      state.isLoading = true;
+    DeviceFetching(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
-    DeviceFethingSuccess(state, action: PayloadAction<IDevices[]>) {
-      state.isLoading = false;
+    DevicesFethingSuccess(state, action: PayloadAction<IDevices[]>) {
       state.errorDevice = '';
       state.devices = action.payload;
     },
+    DeviceFethingSuccess(state, action: PayloadAction<IDevices>) {
+      state.errorDevice = '';
+      state.device = action.payload;
+    },
     DeviceFetchingError(state, action: PayloadAction<string>) {
       state.errorDevice = action.payload;
-      state.isLoading = false;
     },
   },
 });

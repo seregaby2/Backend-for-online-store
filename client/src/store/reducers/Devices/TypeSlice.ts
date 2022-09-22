@@ -5,14 +5,14 @@ type initialStateType = {
   types: IType[];
   isLoading: boolean;
   errorType: string;
-  selectedType: string;
+  selectedType: IType;
 };
 
 const initialState: initialStateType = {
   types: [],
   isLoading: false,
   errorType: '',
-  selectedType: '',
+  selectedType: { name: '' },
 };
 
 export const TypeSlice = createSlice({
@@ -23,15 +23,13 @@ export const TypeSlice = createSlice({
       state.isLoading = action.payload;
     },
     TypeFethingSuccess(state, action: PayloadAction<IType[]>) {
-      state.isLoading = false;
       state.errorType = '';
       state.types = action.payload;
     },
     TypeFetchingError(state, action: PayloadAction<string>) {
       state.errorType = action.payload;
-      state.isLoading = false;
     },
-    TypeSelectedItem(state, action: PayloadAction<string>) {
+    TypeSelectedItem(state, action: PayloadAction<IType>) {
       state.selectedType = action.payload;
     },
   },
