@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { NavLink, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
 import { login, registration } from '../../http/userApi';
 import { IUser } from '../../interfaces/interfaceAuth';
 import { SignupSlice } from '../../store/reducers/authSlice';
@@ -12,8 +12,8 @@ const Auth = () => {
   const location = useLocation();
   const isLogin = location.pathname === AppRoute.REGISTRATION_ROUTE;
 
-  const { dataAuth } = useAppSelector((store) => store.reducerUser);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,8 +33,9 @@ const Auth = () => {
     } else {
       data = await registration(email, password);
     }
-    console.log(data);
     dispatch(SignupSlice.actions.authFethingSuccess(data));
+    dispatch(SignupSlice.actions.authToken(true));
+    navigate(AppRoute.SHOP_ROUTE);
   };
   return (
     <Container className={styles.wrapper}>

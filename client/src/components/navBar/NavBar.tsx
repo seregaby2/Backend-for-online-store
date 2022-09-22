@@ -2,12 +2,20 @@ import React from 'react';
 import styles from './navBar.module.scss';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { AppRoute } from '../../utils/consts';
+import { SignupSlice } from '../../store/reducers/authSlice';
 
 const NavBar = () => {
   const { isTokenActive } = useAppSelector((state) => state.reducerUser);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const logOut = () => {
+    dispatch(SignupSlice.actions.authToken(false));
+    dispatch(SignupSlice.actions.authFethingSuccess({ email: '', role: 'USER' }));
+    localStorage.clear();
+  };
 
   return (
     <div>
@@ -22,7 +30,7 @@ const NavBar = () => {
                 {' '}
                 Admin Control
               </Button>
-              <Button variant={'outline-light'} onClick={() => navigate(AppRoute.LOGIN_ROUTE)}>
+              <Button variant={'outline-light'} onClick={logOut}>
                 {' '}
                 SignOut
               </Button>

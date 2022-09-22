@@ -9,13 +9,7 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
-  types: [
-    { id: 1, name: 'Fridge' },
-    { id: 2, name: 'Phone' },
-    { id: 3, name: 'TV' },
-    { id: 4, name: 'Washing machine' },
-    { id: 5, name: 'Laptop' },
-  ],
+  types: [],
   isLoading: false,
   errorType: '',
   selectedType: '',
@@ -25,8 +19,8 @@ export const TypeSlice = createSlice({
   name: 'RequestTypeOfDevice',
   initialState,
   reducers: {
-    TypeFetching(state) {
-      state.isLoading = true;
+    TypeFetching(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
     },
     TypeFethingSuccess(state, action: PayloadAction<IType[]>) {
       state.isLoading = false;
