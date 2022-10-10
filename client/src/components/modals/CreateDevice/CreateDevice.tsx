@@ -16,13 +16,14 @@ export const CreateDevice = (props: MyProps) => {
   const { show, onHide } = props;
   const { devices } = useAppSelector((store) => store.reducerDevice);
   const { brands, selectedBrand } = useAppSelector((store) => store.reducerBrand);
-  const { selectedType } = useAppSelector((store) => store.reducerType);
+  const { types, selectedType } = useAppSelector((store) => store.reducerType);
 
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [file, setFile] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [file, setFile] = useState<any | null>(null);
   const [info, setInfo] = useState([{ title: '', description: '', number: 0 }]);
 
   const addinfo = () => {
@@ -34,22 +35,24 @@ export const CreateDevice = (props: MyProps) => {
   };
 
   const selectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(e.target.files![0].name);
+    setFile(e.target.files![0]);
   };
 
   const changeInfo = (key: string, value: string, number: number) => {
     setInfo(info.map((e) => (e.number === number ? { ...e, [key]: value } : e)));
   };
 
-  const addDevice = () => {
+  const addDevice = async () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', `${price}`);
     formData.append('img', file);
-    formData.append('brandId', selectedBrand.name);
-    formData.append('typeId', selectedType.name);
+    formData.append('brandId', String(selectedBrand.id));
+    formData.append('typeId', String(selectedType.id));
     formData.append('info', JSON.stringify(info));
-    console.log(formData);
+    await createDevice(formData);
+    onHide();
+    console.log('completed');
   };
 
   useEffect(() => {
@@ -77,7 +80,7 @@ export const CreateDevice = (props: MyProps) => {
                 {selectedType.name ? selectedType.name : 'Choose type'}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {devices.map((type) => (
+                {types.map((type) => (
                   <Dropdown.Item
                     key={type.id}
                     onClick={() => dispatch(TypeSlice.actions.TypeSelectedItem(type))}

@@ -20,7 +20,7 @@ export const checkAuthorization = () => async (dispatch: AppDispatch) => {
 };
 
 export const registration = async (email: string, password: string): Promise<IUser> => {
-  const { data } = await $host.post('api/user/registration', { email, password, role: 'USER' });
+  const { data } = await $host.post('api/user/registration', { email, password, role: 'ADMIN' });
   localStorage.setItem('token', data);
   localStorage.setItem('checkAuthUser', 'authorizated');
   return jwt_decode(data);

@@ -10,8 +10,10 @@ export interface IBrand {
 
 export interface IDevices {
   id?: number;
-  name: string;
-  price: number;
-  img: string;
-  rating: number;
+  name?: string;
+  price?: number;
+  img?: string;
+  rating?: number;
+  brandId?: string;
+  typeId?: string;
 }

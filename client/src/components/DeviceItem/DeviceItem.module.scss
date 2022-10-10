@@ -1,8 +1,10 @@
 .card {
+    padding: 10px;
     max-width: 200px;
     width: 100%;
     display: flex;
     margin-top: 15px;
+    cursor: pointer;
 }
 
 .wrapperDescription {

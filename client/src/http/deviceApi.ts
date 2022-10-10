@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { IBrand, IDevices, IType } from '../interfaces/interfaceDevices';
+import { IBrand, IType } from '../interfaces/interfaceDevices';
 import { BrandSlice } from '../store/reducers/Devices/BrandSlice';
 import { DeviceSlice } from '../store/reducers/Devices/DevicesSlice';
 import { TypeSlice } from '../store/reducers/Devices/TypeSlice';
@@ -58,8 +58,10 @@ export const getBrands = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const createDevice = async (device: IDevices) => {
-  const data = await $authHost.post('api/device', device);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createDevice = async (device: any) => {
+  const { data } = await $authHost.post('api/device', device);
+  console.log(data, 'data');
   return data;
 };
 

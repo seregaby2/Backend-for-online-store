@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IPostRequest, IUser } from '../../interfaces/interfaceAuth';
 
 const initialState: IPostRequest = {
-  dataAuth: { email: '', role: 'USER' },
+  dataAuth: { email: '', role: 'ADMIN' },
   isLoading: false,
   errorAuth: '',
   errorLogin: '',
