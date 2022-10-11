@@ -81,6 +81,7 @@ export const getDevices = () => async (dispatch: AppDispatch) => {
 export const getDevice = (id: number) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await $host.get(`api/device/${id}`);
+    console.log(data, 'getOneDevice');
     dispatch(DeviceSlice.actions.DeviceFetching(true));
     dispatch(DeviceSlice.actions.DeviceFethingSuccess(data));
   } catch (e) {

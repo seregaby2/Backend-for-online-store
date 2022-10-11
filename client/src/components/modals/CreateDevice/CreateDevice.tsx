@@ -52,7 +52,8 @@ export const CreateDevice = (props: MyProps) => {
     formData.append('info', JSON.stringify(info));
     await createDevice(formData);
     onHide();
-    console.log('completed');
+    console.log(info, 'completed');
+    console.log(formData, 'completed');
   };
 
   useEffect(() => {

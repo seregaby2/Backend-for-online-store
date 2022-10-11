@@ -16,4 +16,11 @@ export interface IDevices {
   rating?: number;
   brandId?: string;
   typeId?: string;
+  info?: Iinfo[];
+}
+
+interface Iinfo {
+  id: number;
+  title: string;
+  description: string;
 }

@@ -16,14 +16,14 @@ class DeviceController {
                 return next(ApiError.badRequest("Please, enter device's name"))
             }
             const device = await Device.create({name, price, brandId, typeId, img: fileName})
-            console.log(info, 'info')
+            console.log(info, 'Myinfo')
             if(info) {
                 info = JSON.parse(info)
                 info.forEach(e => {
                     DeviceInfo.create({
                         title: e.title,
                         description: e.description,
-                        deviceId: e.deviceId
+                        deviceId: device.id
                     })
                 });
             }
@@ -63,6 +63,7 @@ class DeviceController {
             where: {id},
             include: [{model: DeviceInfo, as: 'info'}]
         })
+        console.log('device2343', device)
         if(!device) {
             return next(ApiError.badRequest(`Device with id: ${id} is not found`))
         }
