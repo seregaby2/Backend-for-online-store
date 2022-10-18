@@ -1,7 +1,7 @@
 .card {
     padding: 10px;
-    max-width: 200px;
-    width: 100%;
+    width: 400px;
+    // width: 100%;
     display: flex;
     margin-top: 15px;
     cursor: pointer;
@@ -28,4 +28,14 @@
 
 .titleBrand {
     color: rgb(176, 182, 187);
+}
+
+.wrapperImage {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.wrapperImage > img {
+    height: 120px;
 }

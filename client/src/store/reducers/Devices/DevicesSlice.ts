@@ -6,6 +6,9 @@ type initialStateDevice = {
   devices: IDevices[];
   isLoading: boolean;
   errorDevice: string;
+  currentPage: number;
+  totalCountDevice: number;
+  limitDevice: number;
 };
 
 const initialState: initialStateDevice = {
@@ -13,6 +16,9 @@ const initialState: initialStateDevice = {
   devices: [],
   isLoading: false,
   errorDevice: '',
+  currentPage: 1,
+  totalCountDevice: 1,
+  limitDevice: 9,
 };
 
 export const DeviceSlice = createSlice({
@@ -32,6 +38,15 @@ export const DeviceSlice = createSlice({
     },
     DeviceFetchingError(state, action: PayloadAction<string>) {
       state.errorDevice = action.payload;
+    },
+    GetCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+    },
+    GettotalCountDevice(state, action: PayloadAction<number>) {
+      state.totalCountDevice = action.payload;
+    },
+    GetLimitDevice(state, action: PayloadAction<number>) {
+      state.limitDevice = action.payload;
     },
   },
 });

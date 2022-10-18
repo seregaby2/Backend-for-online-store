@@ -16,6 +16,7 @@ export const CreateType = (props: MyProps) => {
 
   const addType = () => {
     dispatch(createType(value));
+    setValue({ name: '' });
     onHide();
   };
 

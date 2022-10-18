@@ -14,14 +14,13 @@ type MyProps = {
 
 export const CreateDevice = (props: MyProps) => {
   const { show, onHide } = props;
-  const { devices } = useAppSelector((store) => store.reducerDevice);
   const { brands, selectedBrand } = useAppSelector((store) => store.reducerBrand);
   const { types, selectedType } = useAppSelector((store) => store.reducerType);
 
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(1000);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [file, setFile] = useState<any | null>(null);
   const [info, setInfo] = useState([{ title: '', description: '', number: 0 }]);
@@ -51,9 +50,10 @@ export const CreateDevice = (props: MyProps) => {
     formData.append('typeId', String(selectedType.id));
     formData.append('info', JSON.stringify(info));
     await createDevice(formData);
+    setName('');
+    setPrice(0);
+    setInfo([{ title: '', description: '', number: 0 }]);
     onHide();
-    console.log(info, 'completed');
-    console.log(formData, 'completed');
   };
 
   useEffect(() => {

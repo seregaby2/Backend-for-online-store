@@ -61,7 +61,6 @@ export const getBrands = () => async (dispatch: AppDispatch) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createDevice = async (device: any) => {
   const { data } = await $authHost.post('api/device', device);
-  console.log(data, 'data');
   return data;
 };
 
@@ -70,6 +69,7 @@ export const getDevices = () => async (dispatch: AppDispatch) => {
     const { data } = await $host.get('api/device');
     dispatch(DeviceSlice.actions.DeviceFetching(true));
     dispatch(DeviceSlice.actions.DevicesFethingSuccess(data.rows));
+    dispatch(DeviceSlice.actions.GettotalCountDevice(data.count));
   } catch (e) {
     const err = e as AxiosError;
     dispatch(DeviceSlice.actions.DeviceFetchingError(err.message));
@@ -81,7 +81,6 @@ export const getDevices = () => async (dispatch: AppDispatch) => {
 export const getDevice = (id: number) => async (dispatch: AppDispatch) => {
   try {
     const { data } = await $host.get(`api/device/${id}`);
-    console.log(data, 'getOneDevice');
     dispatch(DeviceSlice.actions.DeviceFetching(true));
     dispatch(DeviceSlice.actions.DeviceFethingSuccess(data));
   } catch (e) {

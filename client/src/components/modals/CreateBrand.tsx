@@ -16,6 +16,7 @@ export const CreateBrand = (props: MyProps) => {
 
   const addBrand = () => {
     dispatch(createBrand(value));
+    setValue({ name: '' });
     onHide();
   };
 
