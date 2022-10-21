@@ -37,9 +37,12 @@ export const Shop = () => {
   useEffect(() => {
     dispatch(getTypes());
     dispatch(getBrands());
-    dispatch(
-      getDevices(selectedType.id || null, selectedBrand.id || null, currentPage, limitDevice)
-    );
+    console.log(currentPage, totalCountDevice, limitDevice);
+    currentPage > totalCountDevice / limitDevice
+      ? dispatch(getDevices(selectedType.id || null, selectedBrand.id || null, 1, limitDevice))
+      : dispatch(
+          getDevices(selectedType.id || null, selectedBrand.id || null, currentPage, limitDevice)
+        );
   }, [currentPage, selectedBrand, selectedType]);
   return (
     <Container fluid>

@@ -20,15 +20,19 @@ export const checkAuthorization = () => async (dispatch: AppDispatch) => {
 };
 
 export const registration = async (email: string, password: string): Promise<IUser> => {
-  const { data } = await $host.post('api/user/registration', { email, password, role: 'ADMIN' });
+  const { data } = await $host.post('api/user/registration', { email, password, role: 'USER' });
   localStorage.setItem('token', data);
   localStorage.setItem('checkAuthUser', 'authorizated');
   return jwt_decode(data);
 };
 
-export const login = async (email: string, password: string): Promise<IUser> => {
-  const { data } = await $host.post('api/user/login', { email, password });
-  localStorage.setItem('token', data);
-  localStorage.setItem('checkAuthUser', 'authorizated');
-  return jwt_decode(data);
-};
+export const login =
+  (email: string, password: string) =>
+  async (dispatch: AppDispatch): Promise<IUser> => {
+    const { data } = await $host.post('api/user/login', { email, password });
+    const decode: IUser = jwt_decode(data);
+    dispatch(SignupSlice.actions.checkAdmin(decode.role));
+    localStorage.setItem('token', data);
+    localStorage.setItem('checkAuthUser', 'authorizated');
+    return jwt_decode(data);
+  };

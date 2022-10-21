@@ -9,6 +9,7 @@ const initialState: IPostRequest = {
   errorGetUser: '',
   errorDeleteUser: '',
   isTokenActive: false,
+  isAdmin: 'USER',
 };
 
 export const SignupSlice = createSlice({
@@ -27,6 +28,9 @@ export const SignupSlice = createSlice({
     },
     authToken(state, action: PayloadAction<boolean>) {
       state.isTokenActive = action.payload;
+    },
+    checkAdmin(state, action: PayloadAction<string>) {
+      state.isAdmin = action.payload;
     },
   },
 });

@@ -26,16 +26,23 @@ const Auth = () => {
     setPassword(e.target.value);
   };
 
+  const clearForm = () => {
+    setEmail('');
+    setPassword('');
+  };
+
   const submitSign = async () => {
     let data: IUser;
     if (!isLogin) {
-      data = await login(email, password);
+      data = await dispatch(login(email, password));
     } else {
       data = await registration(email, password);
     }
     dispatch(SignupSlice.actions.authFethingSuccess(data));
     dispatch(SignupSlice.actions.authToken(true));
     navigate(AppRoute.SHOP_ROUTE);
+    setEmail('');
+    setPassword('');
   };
   return (
     <Container className={styles.wrapper}>
@@ -59,12 +66,17 @@ const Auth = () => {
             <div className={styles.navLink}>
               {isLogin ? (
                 <>
-                  {'Do you have an account?'} <NavLink to={AppRoute.LOGIN_ROUTE}>Sign In</NavLink>
+                  {'Do you have an account?'}{' '}
+                  <NavLink to={AppRoute.LOGIN_ROUTE} onClick={clearForm}>
+                    Sign In
+                  </NavLink>
                 </>
               ) : (
                 <>
                   {"Do you haven't an account?"}{' '}
-                  <NavLink to={AppRoute.REGISTRATION_ROUTE}>Sign Up</NavLink>
+                  <NavLink to={AppRoute.REGISTRATION_ROUTE} onClick={clearForm}>
+                    Sign Up
+                  </NavLink>
                 </>
               )}
             </div>

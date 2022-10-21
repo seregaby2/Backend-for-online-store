@@ -7,6 +7,7 @@ export interface IPostRequest {
   errorGetUser: string;
   errorDeleteUser: string;
   isTokenActive: boolean;
+  isAdmin: string;
 }
 
 export interface ISignInForm {
