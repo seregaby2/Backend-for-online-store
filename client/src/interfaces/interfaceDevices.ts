@@ -1,10 +1,10 @@
 export interface IType {
-  id?: number;
+  id?: number | null;
   name: string;
 }
 
 export interface IBrand {
-  id?: number;
+  id?: number | null;
   name: string;
 }
 

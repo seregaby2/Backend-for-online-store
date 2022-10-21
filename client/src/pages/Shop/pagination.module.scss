@@ -50,9 +50,14 @@
     width: 80px;
 }
 
-.page_prev > a, .page_next > a {
+.page_prev > a, .page_next > a, .page_item > a {
     text-decoration: none;
     color: black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .active {

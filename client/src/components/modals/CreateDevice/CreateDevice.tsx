@@ -16,6 +16,9 @@ export const CreateDevice = (props: MyProps) => {
   const { show, onHide } = props;
   const { brands, selectedBrand } = useAppSelector((store) => store.reducerBrand);
   const { types, selectedType } = useAppSelector((store) => store.reducerType);
+  const { totalCountDevice, limitDevice, currentPage } = useAppSelector(
+    (store) => store.reducerDevice
+  );
 
   const dispatch = useAppDispatch();
 
@@ -59,7 +62,9 @@ export const CreateDevice = (props: MyProps) => {
   useEffect(() => {
     dispatch(getTypes());
     dispatch(getBrands());
-    dispatch(getDevices());
+    dispatch(
+      getDevices(selectedType.id || null, selectedBrand.id || null, currentPage, limitDevice)
+    );
   }, []);
 
   return (

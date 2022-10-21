@@ -64,19 +64,28 @@ export const createDevice = async (device: any) => {
   return data;
 };
 
-export const getDevices = () => async (dispatch: AppDispatch) => {
-  try {
-    const { data } = await $host.get('api/device');
-    dispatch(DeviceSlice.actions.DeviceFetching(true));
-    dispatch(DeviceSlice.actions.DevicesFethingSuccess(data.rows));
-    dispatch(DeviceSlice.actions.GettotalCountDevice(data.count));
-  } catch (e) {
-    const err = e as AxiosError;
-    dispatch(DeviceSlice.actions.DeviceFetchingError(err.message));
-  } finally {
-    dispatch(DeviceSlice.actions.DeviceFetching(false));
-  }
-};
+export const getDevices =
+  (typeId: number | null, brandId: number | null, page: number, limit: number) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const { data } = await $host.get('api/device', {
+        params: {
+          typeId,
+          brandId,
+          page,
+          limit,
+        },
+      });
+      dispatch(DeviceSlice.actions.DeviceFetching(true));
+      dispatch(DeviceSlice.actions.DevicesFethingSuccess(data.rows));
+      dispatch(DeviceSlice.actions.GettotalCountDevice(data.count));
+    } catch (e) {
+      const err = e as AxiosError;
+      dispatch(DeviceSlice.actions.DeviceFetchingError(err.message));
+    } finally {
+      dispatch(DeviceSlice.actions.DeviceFetching(false));
+    }
+  };
 
 export const getDevice = (id: number) => async (dispatch: AppDispatch) => {
   try {

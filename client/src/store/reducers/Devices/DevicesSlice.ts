@@ -17,8 +17,8 @@ const initialState: initialStateDevice = {
   isLoading: false,
   errorDevice: '',
   currentPage: 1,
-  totalCountDevice: 1,
-  limitDevice: 9,
+  totalCountDevice: 0,
+  limitDevice: 4,
 };
 
 export const DeviceSlice = createSlice({
