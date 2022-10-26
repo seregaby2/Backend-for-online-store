@@ -37,7 +37,6 @@ export const Shop = () => {
   useEffect(() => {
     dispatch(getTypes());
     dispatch(getBrands());
-    console.log(currentPage, totalCountDevice, limitDevice);
     currentPage > totalCountDevice / limitDevice
       ? dispatch(getDevices(selectedType.id || null, selectedBrand.id || null, 1, limitDevice))
       : dispatch(

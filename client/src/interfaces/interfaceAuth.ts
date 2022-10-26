@@ -2,12 +2,9 @@ export interface IPostRequest {
   id?: number;
   dataAuth: IUser;
   isLoading: boolean;
-  errorAuth: string;
-  errorLogin: string;
-  errorGetUser: string;
-  errorDeleteUser: string;
   isTokenActive: boolean;
   isAdmin: string;
+  decodeToken: IUser;
 }
 
 export interface ISignInForm {

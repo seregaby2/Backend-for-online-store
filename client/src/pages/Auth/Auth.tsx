@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { login, registration } from '../../http/userApi';
-import { IUser } from '../../interfaces/interfaceAuth';
 import { SignupSlice } from '../../store/reducers/authSlice';
 import { AppRoute } from '../../utils/consts';
 import styles from './Auth.module.scss';
@@ -14,6 +13,9 @@ const Auth = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { decodeToken } = useAppSelector((state) => state.reducerUser);
+  const { error } = useAppSelector((state) => state.reducerError);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,17 +34,19 @@ const Auth = () => {
   };
 
   const submitSign = async () => {
-    let data: IUser;
     if (!isLogin) {
-      data = await dispatch(login(email, password));
+      await dispatch(login(email, password));
     } else {
-      data = await registration(email, password);
+      await dispatch(registration(email, password));
     }
-    dispatch(SignupSlice.actions.authFethingSuccess(data));
-    dispatch(SignupSlice.actions.authToken(true));
-    navigate(AppRoute.SHOP_ROUTE);
-    setEmail('');
-    setPassword('');
+    console.log(error, 'error');
+    if (!error) {
+      dispatch(SignupSlice.actions.authFethingSuccess(decodeToken));
+      dispatch(SignupSlice.actions.authToken(true));
+      navigate(AppRoute.SHOP_ROUTE);
+      setEmail('');
+      setPassword('');
+    }
   };
   return (
     <Container className={styles.wrapper}>

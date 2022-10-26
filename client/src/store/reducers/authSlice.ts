@@ -4,12 +4,9 @@ import { IPostRequest, IUser } from '../../interfaces/interfaceAuth';
 const initialState: IPostRequest = {
   dataAuth: { email: '', role: 'ADMIN' },
   isLoading: false,
-  errorAuth: '',
-  errorLogin: '',
-  errorGetUser: '',
-  errorDeleteUser: '',
   isTokenActive: false,
   isAdmin: 'USER',
+  decodeToken: { email: '', role: '' },
 };
 
 export const SignupSlice = createSlice({
@@ -21,16 +18,15 @@ export const SignupSlice = createSlice({
     },
     authFethingSuccess(state, action: PayloadAction<IUser>) {
       state.dataAuth = action.payload;
-      state.errorAuth = '';
-    },
-    authFetchingError(state, action: PayloadAction<string>) {
-      state.errorAuth = action.payload;
     },
     authToken(state, action: PayloadAction<boolean>) {
       state.isTokenActive = action.payload;
     },
     checkAdmin(state, action: PayloadAction<string>) {
       state.isAdmin = action.payload;
+    },
+    getDecodeToken(state, action: PayloadAction<IUser>) {
+      state.decodeToken = action.payload;
     },
   },
 });

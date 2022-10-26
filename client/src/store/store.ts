@@ -3,12 +3,14 @@ import { reducerUser } from './reducers/authSlice';
 import { reducerBrand } from './reducers/Devices/BrandSlice';
 import { reducerDevice } from './reducers/Devices/DevicesSlice';
 import { reducerType } from './reducers/Devices/TypeSlice';
+import { reducerError } from './reducers/error';
 
 const rootReducer = combineReducers({
   reducerUser,
   reducerType,
   reducerDevice,
   reducerBrand,
+  reducerError,
 });
 
 export const setupStore = () => {
